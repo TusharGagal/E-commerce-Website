@@ -1,11 +1,9 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import ProductList from "./features/Product-List/ProductList";
-import Navbar from "./features/Navbar/Navbar";
 import Home from "./Pages/Home";
 import Loginpage from "./Pages/Loginpage";
 import SignupPage from "./Pages/SignupPage";
+import CartPage from "./Pages/Cartpage";
 
 import {
   createBrowserRouter,
@@ -27,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "SignUp",
     element: <SignupPage />,
+  },
+  {
+    path: "cart",
+    element: <CartPage />,
   },
 ]);
 function App() {
