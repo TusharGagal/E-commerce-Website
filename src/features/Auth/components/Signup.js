@@ -4,7 +4,7 @@ import { increment, incrementAsync, selectCount } from "../AuthSlice";
 import { Link } from "react-router-dom";
 import logo from "../../../images/logo light.png";
 export default function Signup() {
-  const count = useSelector(selectCount);
+  // const count = useSelector(selectCount);
   const dispatch = useDispatch();
   return (
     <div>
