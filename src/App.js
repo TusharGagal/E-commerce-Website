@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import Checkout from "./Pages/Checkout";
 import ProductdetailPage from "./Pages/ProductdetailPage";
+import Protected from "./features/Auth/components/Protected";
 
 const router = createBrowserRouter([
   {
@@ -30,12 +31,20 @@ const router = createBrowserRouter([
   },
   {
     path: "cart",
-    element: <CartPage />,
+    element: (
+      <Protected>
+        <CartPage />,
+      </Protected>
+    ),
   },
 
   {
     path: "checkout",
-    element: <Checkout />,
+    element: (
+      <Protected>
+        <Checkout />,
+      </Protected>
+    ),
   },
 
   {
