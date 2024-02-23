@@ -4,6 +4,8 @@ import { RadioGroup } from "@headlessui/react";
 import { fetchAllProductByIdAsync, selectedProductById } from "../ProductSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { addToCartAsync } from "../../Cart/CartSlice";
+import { selectLoggedInUser } from "../../Auth/AuthSlice";
 //TODO:In server data we will add colors, sizes and description to each product.
 
 const colors = [
@@ -67,9 +69,14 @@ function classNames(...classes) {
 export default function ProductDetails() {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
+  const user = useSelector(selectLoggedInUser);
   const dispatch = useDispatch();
   const product = useSelector(selectedProductById);
   const params = useParams();
+  const handleCart = (e) => {
+    e.preventDefault();
+    dispatch(addToCartAsync({ ...product, quantity: 1, user: user?.id }));
+  };
   useEffect(() => {
     dispatch(fetchAllProductByIdAsync(params.id));
   }, [dispatch, params.id]);
@@ -318,6 +325,7 @@ export default function ProductDetails() {
                 <button
                   type="submit"
                   className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  onClick={handleCart}
                 >
                   Add to Cart
                 </button>
