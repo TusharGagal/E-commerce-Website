@@ -4,7 +4,7 @@ import { Link, Navigate } from "react-router-dom";
 import logo from "../../../images/logo light.png";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { checkUserAsync, selectError, selectLoggedInUser } from "../AuthSlice";
-
+import { toast } from "react-toastify";
 export default function Login() {
   // const count = useSelector(selectCount);
   const dispatch = useDispatch();
@@ -34,6 +34,7 @@ export default function Login() {
             noValidate
             className="space-y-6"
             onSubmit={handleSubmit((data) => {
+              toast.info("Thanks for signing in! Enjoy your shopping");
               dispatch(
                 checkUserAsync({
                   email: data.email,

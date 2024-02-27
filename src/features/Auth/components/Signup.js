@@ -4,7 +4,7 @@ import { selectLoggedInUser, createUserAsync } from "../AuthSlice";
 import { Link, Navigate } from "react-router-dom";
 import logo from "../../../images/logo light.png";
 import { useForm, SubmitHandler } from "react-hook-form";
-
+import { toast } from "react-toastify";
 export default function Signup() {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
@@ -28,8 +28,13 @@ export default function Signup() {
           <form
             className="space-y-6"
             onSubmit={handleSubmit((data) => {
+              toast.info("Thanks for signing up! Enjoy your shopping");
               dispatch(
-                createUserAsync({ email: data.email, password: data.password })
+                createUserAsync({
+                  email: data.email,
+                  password: data.password,
+                  addresses: [],
+                })
               );
               console.log(data);
             })}

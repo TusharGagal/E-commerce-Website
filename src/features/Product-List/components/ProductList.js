@@ -475,13 +475,14 @@ function ProductGrid({ products }) {
                             Rs.{" "}
                             {Math.round(
                               product.price *
-                                (1 - product.discountPercentage / 100)
+                                (1 - product.discountPercentage / 100) *
+                                83
                             )}
                           </p>
                           <p className="text-sm font-medium text-gray-900">
                             M.R.P: Rs.{" "}
                             <span className="line-through">
-                              {product.price}
+                              {product.price * 83}
                             </span>
                           </p>
                         </div>

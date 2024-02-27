@@ -5,7 +5,6 @@ import {
   updateItem,
   removeItem,
 } from "./CartAPI";
-
 const initialState = {
   value: 0,
   status: "idle",

@@ -4,7 +4,8 @@ import Home from "./Pages/Home";
 import Loginpage from "./Pages/Loginpage";
 import SignupPage from "./Pages/SignupPage";
 import CartPage from "./Pages/Cartpage";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -67,6 +68,7 @@ function App() {
   return (
     <div className="App">
       <RouterProvider router={router} />
+      <ToastContainer />
     </div>
   );
 }

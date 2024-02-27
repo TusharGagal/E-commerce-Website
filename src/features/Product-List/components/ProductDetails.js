@@ -3,9 +3,12 @@ import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
 import { fetchAllProductByIdAsync, selectedProductById } from "../ProductSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { addToCartAsync } from "../../Cart/CartSlice";
 import { selectLoggedInUser } from "../../Auth/AuthSlice";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 //TODO:In server data we will add colors, sizes and description to each product.
 
 const colors = [
@@ -73,9 +76,18 @@ export default function ProductDetails() {
   const dispatch = useDispatch();
   const product = useSelector(selectedProductById);
   const params = useParams();
+  const navigate = useNavigate();
   const handleCart = (e) => {
     e.preventDefault();
-    dispatch(addToCartAsync({ ...product, quantity: 1, user: user?.id }));
+    if (user) {
+      const newItem = { ...product, quantity: 1, user: user?.id };
+      delete newItem["id"];
+      toast.success("Item added to cart!");
+      dispatch(addToCartAsync(newItem));
+    } else {
+      toast.warn("Please login to your account");
+      navigate("/Signin");
+    }
   };
   useEffect(() => {
     dispatch(fetchAllProductByIdAsync(params.id));
@@ -171,7 +183,14 @@ export default function ProductDetails() {
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
               <p className="text-3xl tracking-tight text-gray-900">
-                Rs. {product.price}
+                Rs.{" "}
+                {Math.round(
+                  product.price * (1 - product.discountPercentage / 100) * 83
+                )}
+              </p>
+              <p className="text-xl font-medium text-gray-900">
+                M.R.P: Rs.{" "}
+                <span className="line-through">{product.price * 83}</span>
               </p>
 
               {/* Reviews */}
