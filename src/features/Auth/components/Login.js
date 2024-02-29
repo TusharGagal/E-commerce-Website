@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import logo from "../../../images/logo light.png";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { checkUserAsync, selectError, selectLoggedInUser } from "../AuthSlice";
@@ -10,7 +10,7 @@ export default function Login() {
   const dispatch = useDispatch();
   const error = useSelector(selectError);
   const user = useSelector(selectLoggedInUser);
-
+  const location = useLocation();
   const {
     register,
     handleSubmit,
@@ -20,7 +20,8 @@ export default function Login() {
   console.log(errors);
   return (
     <div>
-      {user && <Navigate to="/"></Navigate>}
+      {user && <Navigate to={location?.state?.prevUrl} replace={true} />}
+      {user && <Navigate to="/" replace={true} />}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 pb-8 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img className="mx-auto h-36 w-auto" src={logo} alt="Your Company" />
@@ -113,7 +114,7 @@ export default function Login() {
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{" "}
             <Link
-              to="/SignUp"
+              to="/Signup"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
               Create an Account

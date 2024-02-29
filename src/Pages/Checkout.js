@@ -12,8 +12,12 @@ import {
   selectLoggedInUser,
 } from "../features/Auth/AuthSlice";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { createOrderAsync } from "../features/Order/OrderSlice";
+import {
+  createOrderAsync,
+  selectCurrentOrder,
+} from "../features/Order/OrderSlice";
 import { toast } from "react-toastify";
+import { isPending } from "@reduxjs/toolkit";
 function Checkout() {
   const [open, setOpen] = useState(true);
   const dispatch = useDispatch();
@@ -39,6 +43,7 @@ function Checkout() {
     formState: { errors },
   } = useForm();
   const user = useSelector(selectLoggedInUser);
+  const currentOrder = useSelector(selectCurrentOrder);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("cash");
 
@@ -56,6 +61,7 @@ function Checkout() {
       user,
       paymentMethod,
       selectedAddress,
+      status: "pending", //other status can be delivered ,recieved.
     };
     dispatch(createOrderAsync(order));
     toast.success(`Yor order has been placed`);
@@ -68,6 +74,9 @@ function Checkout() {
   return (
     <>
       {!products.length && <Navigate to="/" replace={true}></Navigate>}
+      {currentOrder && (
+        <Navigate to={`/order-success/${currentOrder.id}`} replace={true} />
+      )}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
           <div className="lg:col-span-3">

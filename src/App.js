@@ -3,6 +3,7 @@ import "./App.css";
 import Home from "./Pages/Home";
 import Loginpage from "./Pages/Loginpage";
 import SignupPage from "./Pages/SignupPage";
+import PageNotFound from "./Pages/404page";
 import CartPage from "./Pages/Cartpage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,6 +19,8 @@ import Protected from "./features/Auth/components/Protected";
 import { selectLoggedInUser } from "./features/Auth/AuthSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchItemsByUserIdAsync } from "./features/Cart/CartSlice";
+import OrderSuccessPage from "./Pages/OrderSuccessPage";
+import UserOrderPage from "./Pages/UserOrderPage";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +57,22 @@ const router = createBrowserRouter([
   {
     path: "product-details/:id",
     element: <ProductdetailPage />,
+  },
+  {
+    path: "order-success/:id",
+    element: <OrderSuccessPage />,
+  },
+  {
+    path: "myorders",
+    element: (
+      <Protected>
+        <UserOrderPage />,
+      </Protected>
+    ),
+  },
+  {
+    path: "*",
+    element: <PageNotFound />,
   },
 ]);
 function App() {

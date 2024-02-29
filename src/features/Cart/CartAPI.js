@@ -43,3 +43,15 @@ export function removeItem(itemId) {
     resolve({ data: { id: itemId } });
   });
 }
+
+export function resetCart(userId) {
+  // get all the items of user cart and then delete all the items.
+  return new Promise(async (resolve) => {
+    const response = await fetchItemsByUserId(userId);
+    const items = await response.data;
+    for (let item of items) {
+      await removeItem(item.id);
+    }
+    resolve({ status: "success" });
+  });
+}
