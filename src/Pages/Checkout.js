@@ -6,18 +6,15 @@ import {
   removeItemAsync,
   updateItemsAsync,
 } from "../features/Cart/CartSlice";
-import {
-  checkUserAsync,
-  updateUserAsync,
-  selectLoggedInUser,
-} from "../features/Auth/AuthSlice";
+import { checkUserAsync, updateUserAsync } from "../features/Auth/AuthSlice";
+
 import { useForm, SubmitHandler } from "react-hook-form";
 import {
   createOrderAsync,
   selectCurrentOrder,
 } from "../features/Order/OrderSlice";
 import { toast } from "react-toastify";
-import { isPending } from "@reduxjs/toolkit";
+import { selectUserInfo } from "../features/User/userSlice";
 function Checkout() {
   const [open, setOpen] = useState(true);
   const dispatch = useDispatch();
@@ -40,9 +37,10 @@ function Checkout() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectUserInfo);
   const currentOrder = useSelector(selectCurrentOrder);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("cash");
@@ -91,6 +89,7 @@ function Checkout() {
                     addresses: [...user.addresses, data],
                   })
                 );
+                reset();
               })}
             >
               <div className="space-y-15">

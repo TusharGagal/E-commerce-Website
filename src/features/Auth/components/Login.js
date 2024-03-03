@@ -4,13 +4,12 @@ import { Link, Navigate, useLocation } from "react-router-dom";
 import logo from "../../../images/logo light.png";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { checkUserAsync, selectError, selectLoggedInUser } from "../AuthSlice";
-import { toast } from "react-toastify";
 export default function Login() {
   // const count = useSelector(selectCount);
   const dispatch = useDispatch();
   const error = useSelector(selectError);
   const user = useSelector(selectLoggedInUser);
-  const location = useLocation();
+
   const {
     register,
     handleSubmit,
@@ -20,7 +19,6 @@ export default function Login() {
   console.log(errors);
   return (
     <div>
-      {user && <Navigate to={location?.state?.prevUrl} replace={true} />}
       {user && <Navigate to="/" replace={true} />}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 pb-8 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -35,7 +33,6 @@ export default function Login() {
             noValidate
             className="space-y-6"
             onSubmit={handleSubmit((data) => {
-              toast.info("Thanks for signing in! Enjoy your shopping");
               dispatch(
                 checkUserAsync({
                   email: data.email,

@@ -8,8 +8,7 @@ import { toast } from "react-toastify";
 export default function Signup() {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
-  const location = useLocation();
-  console.log(location);
+
   const {
     register,
     handleSubmit,
@@ -17,7 +16,6 @@ export default function Signup() {
   } = useForm();
   return (
     <div>
-      {user && <Navigate to={location?.state?.prevUrl} replace={true} />}
       {user && <Navigate to="/" replace={true} />}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 pb-8 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">

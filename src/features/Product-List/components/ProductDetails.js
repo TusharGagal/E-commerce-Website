@@ -3,7 +3,12 @@ import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
 import { fetchAllProductByIdAsync, selectedProductById } from "../ProductSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { addToCartAsync } from "../../Cart/CartSlice";
 import { selectLoggedInUser } from "../../Auth/AuthSlice";
 import { toast } from "react-toastify";
