@@ -8,8 +8,9 @@ import {
   ShoppingCartIcon,
 } from "@heroicons/react/24/outline";
 import ProductList from "../Product-List/components/ProductList";
-import logo from "../../images/logo.png";
+import logo from "../../images/logo (2).png";
 import { cartItems } from "../Cart/CartSlice";
+import { selectLoggedInUser } from "../Auth/AuthSlice";
 const user = {
   name: "Tom Cook",
   email: "tom@example.com",
@@ -17,13 +18,14 @@ const user = {
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
+  { name: "Dashboard", link: "#", user: true, current: true },
+  { name: "Team", link: "#", user: true, current: false },
+  { name: "Admin ", link: "/admin", admin: true, current: true },
 ];
 const userNavigation = [
   { name: "My Profile", link: "/myprofile" },
   { name: "My Orders", link: "/myorders" },
-  { name: "Sign out", link: "/signin" },
+  { name: "Sign out", link: "/Logout" },
 ];
 
 function classNames(...classes) {
@@ -32,6 +34,7 @@ function classNames(...classes) {
 
 function Navbar({ children }) {
   const items = useSelector(cartItems);
+  const user = useSelector(selectLoggedInUser);
   return (
     <>
       <div className="min-h-full">
@@ -44,7 +47,7 @@ function Navbar({ children }) {
                     <div className="flex-shrink-0">
                       <Link to="/">
                         <img
-                          className="h-22 w-24"
+                          className="h-15 w-20 p-2"
                           src={logo}
                           alt="Your Company"
                         />
@@ -52,21 +55,24 @@ function Navbar({ children }) {
                     </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
-                        {navigation.map((item) => (
-                          <a
-                            key={item.name}
-                            href={item.href}
-                            className={classNames(
-                              item.current
-                                ? "bg-gray-900 text-white"
-                                : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                              "rounded-md px-3 py-2 text-sm font-medium"
-                            )}
-                            aria-current={item.current ? "page" : undefined}
-                          >
-                            {item.name}
-                          </a>
-                        ))}
+                        {navigation.map(
+                          (item) =>
+                            item[user.role] && (
+                              <Link
+                                key={item.name}
+                                to={item.link}
+                                className={classNames(
+                                  item.current
+                                    ? "bg-gray-900 text-white"
+                                    : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                                  "rounded-md px-3 py-2 text-sm font-medium"
+                                )}
+                                aria-current={item.current ? "page" : undefined}
+                              >
+                                {item.name}
+                              </Link>
+                            )
+                        )}
                       </div>
                     </div>
                   </div>
@@ -83,7 +89,7 @@ function Navbar({ children }) {
                           />
                         </button>
                       </Link>
-                      {items.length != 0 && (
+                      {items.length !== 0 && (
                         <span className="inline-flex items-center rounded-md mb-7 -ml-3 bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
                           {items.length}
                         </span>

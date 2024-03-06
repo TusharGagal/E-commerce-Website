@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectLoggedInUser, createUserAsync } from "../AuthSlice";
 import { Link, Navigate, useLocation } from "react-router-dom";
-import logo from "../../../images/logo light.png";
+import logo from "../../../images/logo (2).png";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
 export default function Signup() {
@@ -19,7 +19,11 @@ export default function Signup() {
       {user && <Navigate to="/" replace={true} />}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 pb-8 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img className="mx-auto h-36 w-auto" src={logo} alt="Your Company" />
+          <img
+            className="mx-auto my-10 h-28 w-auto"
+            src={logo}
+            alt="Your Company"
+          />
           <h2 className="mt-0 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Create a new Account
           </h2>
@@ -35,6 +39,8 @@ export default function Signup() {
                   email: data.email,
                   password: data.password,
                   addresses: [],
+                  role: "user",
+                  //TODO: this role can be directly given on backend
                 })
               );
               console.log(data);

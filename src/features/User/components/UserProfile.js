@@ -8,6 +8,9 @@ export default function UserProfile() {
   const user = useSelector(selectUserInfo);
   const [selectEditIndex, setSelectEditIndex] = useState(-1);
   const [showAddAddressFrom, setshowAddAddressFrom] = useState(false);
+
+  // TODO: we will add payment section in user profile and in checkout section when we work on backend.
+
   const handleEdit = (addressUpdate, index) => {
     const newUser = { ...user, addresses: [...user.addresses] };
     newUser.addresses.splice(index, 1, addressUpdate);
@@ -59,6 +62,11 @@ export default function UserProfile() {
             <h2 className="text-xl p-2 font-bold tracking-tight text-red-400">
               Email: {user.email}
             </h2>
+            {user.role === "admin" && (
+              <h2 className="text-xl p-2 font-bold tracking-tight text-red-400">
+                role: {user.role}
+              </h2>
+            )}
 
             <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
               <button

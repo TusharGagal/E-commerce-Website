@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
-import { fetchProductByIdAsync, selectedProductById } from "../ProductSlice";
+import {
+  fetchProductByIdAsync,
+  selectedProductById,
+} from "../../Product-List/ProductSlice";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Navigate,

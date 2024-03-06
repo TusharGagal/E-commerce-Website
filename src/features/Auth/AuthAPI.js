@@ -33,3 +33,9 @@ export function CheckUser(loginInfo) {
     }
   });
 }
+export function SignOut(userId) {
+  return new Promise(async (resolve) => {
+    //TODO: on server it will return some info of user(not password).
+    resolve({ data: "success" });
+  });
+}

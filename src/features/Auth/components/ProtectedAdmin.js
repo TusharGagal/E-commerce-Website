@@ -7,6 +7,9 @@ function Protected({ children }) {
   if (!user) {
     return <Navigate to="/Signin" replace={true} />;
   }
+  if (user && user.role != "admin") {
+    return <Navigate to="/" replace={true} />;
+  }
 
   return children;
 }
