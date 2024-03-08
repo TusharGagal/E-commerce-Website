@@ -15,15 +15,13 @@ import {
 } from "../features/Order/OrderSlice";
 import { toast } from "react-toastify";
 import { selectUserInfo } from "../features/User/userSlice";
+import { discountedPrice } from "../app/Constants";
 function Checkout() {
   const [open, setOpen] = useState(true);
   const dispatch = useDispatch();
   const products = useSelector(cartItems);
   const totalAmount = products.reduce(
-    (amount, item) =>
-      Math.round(item.price * (1 - item.discountPercentage / 100) * 83) *
-        item.quantity +
-      amount,
+    (amount, item) => discountedPrice(item) * item.quantity + amount,
     0
   );
   const totalItems = products.reduce((total, item) => item.quantity + total, 0);
@@ -380,11 +378,7 @@ function Checkout() {
                               </h3>
                               <p className="ml-4">
                                 Rs.
-                                {Math.round(
-                                  product.price *
-                                    (1 - product.discountPercentage / 100) *
-                                    83
-                                ) * product.quantity}
+                                {discountedPrice(product) * product.quantity}
                               </p>
                             </div>
                             <p className="mt-1 text-sm text-gray-500">

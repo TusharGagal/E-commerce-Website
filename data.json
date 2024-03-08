@@ -2403,6 +2403,23 @@
       ],
       "role": "admin",
       "id": 2
+    },
+    {
+      "email": "shubham2910@gmail.com",
+      "password": "Shubham2910",
+      "addresses": [
+        {
+          "name": "Shubham Gagal",
+          "email": "shubham2910@gmail.com",
+          "phone": "8928192820",
+          "street": "Flat No. -203, T-4, Florida Apartments, sector-24",
+          "city": "Gurugram",
+          "state": "Haryana",
+          "pinCode": "122015"
+        }
+      ],
+      "role": "user",
+      "id": 3
     }
   ],
   "cart": [],
@@ -2458,7 +2475,7 @@
         "state": "Haryana",
         "pinCode": "121004"
       },
-      "status": "pending",
+      "status": "delivered",
       "id": 3
     },
     {
@@ -2534,7 +2551,7 @@
         "state": "Haryana",
         "pinCode": "121004"
       },
-      "status": "pending",
+      "status": "dispatched",
       "id": 4
     },
     {
@@ -2592,6 +2609,231 @@
       },
       "status": "pending",
       "id": 5
+    },
+    {
+      "products": [
+        {
+          "title": "Sneakers Joggers Shoes",
+          "description": "Gender: Men , Colors: Same as DisplayedCondition: 100% Brand New",
+          "price": 40,
+          "discountPercentage": 12.57,
+          "rating": 4.38,
+          "stock": 6,
+          "brand": "Sneakers",
+          "category": "mens-shoes",
+          "thumbnail": "https://cdn.dummyjson.com/product-images/56/thumbnail.jpg",
+          "images": [
+            "https://cdn.dummyjson.com/product-images/56/1.jpg",
+            "https://cdn.dummyjson.com/product-images/56/2.jpg",
+            "https://cdn.dummyjson.com/product-images/56/3.jpg",
+            "https://cdn.dummyjson.com/product-images/56/4.jpg",
+            "https://cdn.dummyjson.com/product-images/56/5.jpg",
+            "https://cdn.dummyjson.com/product-images/56/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 3,
+          "id": 1
+        },
+        {
+          "title": "Leather Straps Wristwatch",
+          "description": "Style:Sport ,Clasp:Buckles ,Water Resistance Depth:3Bar",
+          "price": 120,
+          "discountPercentage": 7.14,
+          "rating": 4.63,
+          "stock": 91,
+          "brand": "Naviforce",
+          "category": "mens-watches",
+          "thumbnail": "https://cdn.dummyjson.com/product-images/61/thumbnail.jpg",
+          "images": [
+            "https://cdn.dummyjson.com/product-images/61/1.jpg",
+            "https://cdn.dummyjson.com/product-images/61/2.png",
+            "https://cdn.dummyjson.com/product-images/61/3.jpg"
+          ],
+          "quantity": 2,
+          "user": 3,
+          "id": 2
+        }
+      ],
+      "totalAmount": 21401,
+      "totalItems": 3,
+      "user": {
+        "email": "shubham2910@gmail.com",
+        "password": "Shubham2910",
+        "addresses": [
+          {
+            "name": "Shubham Gagal",
+            "email": "shubham2910@gmail.com",
+            "phone": "8928192820",
+            "street": "Flat No. -203, T-4, Florida Apartments, sector-24",
+            "city": "Gurugram",
+            "state": "Haryana",
+            "pinCode": "122015"
+          }
+        ],
+        "role": "user",
+        "id": 3
+      },
+      "paymentMethod": "card",
+      "selectedAddress": {
+        "name": "Shubham Gagal",
+        "email": "shubham2910@gmail.com",
+        "phone": "8928192820",
+        "street": "Flat No. -203, T-4, Florida Apartments, sector-24",
+        "city": "Gurugram",
+        "state": "Haryana",
+        "pinCode": "122015"
+      },
+      "status": "pending",
+      "id": 6
+    },
+    {
+      "products": [
+        {
+          "title": "iPhone X",
+          "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+          "price": 800,
+          "discountPercentage": 13.23,
+          "rating": 4.44,
+          "stock": 34,
+          "brand": "Apple",
+          "category": "smartphones",
+          "thumbnail": "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg",
+          "images": [
+            "https://cdn.dummyjson.com/product-images/2/1.jpg",
+            "https://cdn.dummyjson.com/product-images/2/2.jpg",
+            "https://cdn.dummyjson.com/product-images/2/3.jpg"
+          ],
+          "quantity": 1,
+          "user": 3,
+          "id": 1
+        }
+      ],
+      "totalAmount": 57615,
+      "totalItems": 1,
+      "user": {
+        "email": "shubham2910@gmail.com",
+        "password": "Shubham2910",
+        "addresses": [
+          {
+            "name": "Shubham Gagal",
+            "email": "shubham2910@gmail.com",
+            "phone": "8928192820",
+            "street": "Flat No. -203, T-4, Florida Apartments, sector-24",
+            "city": "Gurugram",
+            "state": "Haryana",
+            "pinCode": "122015"
+          }
+        ],
+        "role": "user",
+        "id": 3
+      },
+      "paymentMethod": "cash",
+      "selectedAddress": {
+        "name": "Shubham Gagal",
+        "email": "shubham2910@gmail.com",
+        "phone": "8928192820",
+        "street": "Flat No. -203, T-4, Florida Apartments, sector-24",
+        "city": "Gurugram",
+        "state": "Haryana",
+        "pinCode": "122015"
+      },
+      "status": "pending",
+      "id": 7
+    },
+    {
+      "products": [
+        {
+          "title": "Qualcomm original Car Charger",
+          "description": "best Quality CHarger , Highly Recommended to all best Quality CHarger , Highly Recommended to all",
+          "price": 40,
+          "discountPercentage": 17.53,
+          "rating": 4.2,
+          "stock": 79,
+          "brand": "TC Reusable",
+          "category": "automotive",
+          "thumbnail": "https://cdn.dummyjson.com/product-images/89/thumbnail.jpg",
+          "images": [
+            "https://cdn.dummyjson.com/product-images/89/1.jpg",
+            "https://cdn.dummyjson.com/product-images/89/2.jpg",
+            "https://cdn.dummyjson.com/product-images/89/3.jpg",
+            "https://cdn.dummyjson.com/product-images/89/4.jpg",
+            "https://cdn.dummyjson.com/product-images/89/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 1
+        },
+        {
+          "title": "Kabir Singh Square Sunglass",
+          "description": "Orignal Metal Kabir Singh design 2020 Sunglasses Men Brand Designer Sun Glasses Kabir Singh Square Sunglass",
+          "price": 50,
+          "discountPercentage": 15.6,
+          "rating": 4.62,
+          "stock": 78,
+          "brand": "Designer Sun Glasses",
+          "category": "sunglasses",
+          "thumbnail": "https://cdn.dummyjson.com/product-images/82/thumbnail.jpg",
+          "images": [
+            "https://cdn.dummyjson.com/product-images/82/1.jpg",
+            "https://cdn.dummyjson.com/product-images/82/2.webp",
+            "https://cdn.dummyjson.com/product-images/82/3.jpg",
+            "https://cdn.dummyjson.com/product-images/82/4.jpg",
+            "https://cdn.dummyjson.com/product-images/82/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 2
+        }
+      ],
+      "totalAmount": 6241,
+      "totalItems": 2,
+      "user": {
+        "email": "tushargagal1209@gmail.com",
+        "password": "Tushar12",
+        "addresses": [
+          {
+            "name": "Sahil",
+            "email": "sahil.fbd@gmail.com",
+            "phone": "9876789291",
+            "street": "Flat no.-401,T-2, Florida apartments, Sector-64",
+            "state": "Haryana",
+            "city": "Faridabad",
+            "pinCode": "121004"
+          },
+          {
+            "name": "Tushar Gagal",
+            "email": "tushargagal1209@gmail.com",
+            "phone": "08448334110",
+            "street": "H.No. - 626, sector-3, Ballabgarh ",
+            "city": "Faridabad",
+            "state": "Haryana",
+            "pinCode": "121004"
+          },
+          {
+            "name": "Shubham Gagal",
+            "email": "sgagal2910@gmail.com",
+            "phone": "8918273921",
+            "street": "39A, Hasan Khan",
+            "city": "Alwar",
+            "state": "Rajasthan",
+            "pinCode": "301001"
+          }
+        ],
+        "role": "user",
+        "id": 1
+      },
+      "paymentMethod": "cash",
+      "selectedAddress": {
+        "name": "Sahil",
+        "email": "sahil.fbd@gmail.com",
+        "phone": "9876789291",
+        "street": "Flat no.-401,T-2, Florida apartments, Sector-64",
+        "state": "Haryana",
+        "city": "Faridabad",
+        "pinCode": "121004"
+      },
+      "status": "pending",
+      "id": 8
     }
   ]
 }

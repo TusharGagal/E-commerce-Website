@@ -64,7 +64,7 @@ export function fetchProductsByFilter(filter, sort, pagination) {
   }
   //pagination
   for (let key in pagination) {
-    queryString += `${key}=${pagination[key]}`;
+    queryString += `${key}=${pagination[key]}&`;
   }
 
   // TODO: we will not hard-code server URL here

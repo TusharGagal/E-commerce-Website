@@ -29,6 +29,7 @@ import { fetchLoggedInUserAsync } from "./features/User/userSlice";
 import Logout from "./features/Auth/components/Logout";
 import ForgotPasswordPage from "./Pages/ForgotPasswordPage";
 import AdminProductFormPage from "./Pages/AdminProductFormPage";
+import AdminOrdersPage from "./Pages/AdminOrdersPage";
 
 const router = createBrowserRouter([
   {
@@ -107,6 +108,14 @@ const router = createBrowserRouter([
     element: (
       <ProtectedAdmin>
         <AdminProductFormPage />
+      </ProtectedAdmin>
+    ),
+  },
+  {
+    path: "/admin/orders",
+    element: (
+      <ProtectedAdmin>
+        <AdminOrdersPage />
       </ProtectedAdmin>
     ),
   },

@@ -11,6 +11,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
+import { discountedPrice } from "../../app/Constants";
 
 export default function Cart() {
   const [open, setOpen] = useState(true);
@@ -18,10 +19,7 @@ export default function Cart() {
   const user = useSelector(selectLoggedInUser);
   const products = useSelector(cartItems);
   const totalAmount = products.reduce(
-    (amount, item) =>
-      Math.round(item.price * (1 - item.discountPercentage / 100) * 83) *
-        item.quantity +
-      amount,
+    (amount, item) => discountedPrice(item) * item.quantity + amount,
     0
   );
   const totalItems = products.reduce((total, item) => item.quantity + total, 0);
@@ -68,11 +66,7 @@ export default function Cart() {
                           </h3>
                           <p className="ml-4">
                             Rs.
-                            {Math.round(
-                              product.price *
-                                (1 - product.discountPercentage / 100) *
-                                83
-                            ) * product.quantity}
+                            {discountedPrice(product) * product.quantity}
                           </p>
                         </div>
                         <p className="mt-1 text-sm text-gray-500">

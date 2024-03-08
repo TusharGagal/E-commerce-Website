@@ -13,6 +13,7 @@ import { addToCartAsync } from "../../Cart/CartSlice";
 import { selectLoggedInUser } from "../../Auth/AuthSlice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { discountedPrice } from "../../../app/Constants";
 
 //TODO:In server data we will add colors, sizes and description to each product.
 
@@ -188,10 +189,7 @@ export default function ProductDetails() {
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
               <p className="text-3xl tracking-tight text-gray-900">
-                Rs.{" "}
-                {Math.round(
-                  product.price * (1 - product.discountPercentage / 100) * 83
-                )}
+                Rs. {discountedPrice(product)}
               </p>
               <p className="text-xl font-medium text-gray-900">
                 M.R.P: Rs.{" "}

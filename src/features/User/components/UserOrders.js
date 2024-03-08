@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchLoggedInUserOrdersAsync, selectUserOrders } from "../userSlice";
 import { selectLoggedInUser } from "../../Auth/AuthSlice";
+import { discountedPrice } from "../../../app/Constants";
 
 export default function UserOrders() {
   const dispatch = useDispatch();
@@ -54,11 +55,7 @@ export default function UserOrders() {
                               </h3>
                               <p className="ml-4">
                                 Rs.
-                                {Math.round(
-                                  order.price *
-                                    (1 - order.discountPercentage / 100) *
-                                    83
-                                ) * order.quantity}
+                                {discountedPrice(order) * order.quantity}
                               </p>
                             </div>
                             <p className="mt-1 text-sm text-gray-500">
