@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectUserInfo, updateUserAsync } from "../userSlice";
+import { OrderStatus, selectUserInfo, updateUserAsync } from "../userSlice";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { ThreeDots } from "react-loader-spinner";
+import Modals from "../../CommonComponents/Modals";
 
 export default function UserProfile() {
   const dispatch = useDispatch();
   const user = useSelector(selectUserInfo);
+  const [openModal, setOpenModal] = useState(null);
+
+  const status = useSelector(OrderStatus);
   const [selectEditIndex, setSelectEditIndex] = useState(-1);
   const [showAddAddressFrom, setshowAddAddressFrom] = useState(false);
 
@@ -55,6 +60,20 @@ export default function UserProfile() {
           My Profile
         </h2>
         <div>
+          {status === "loading" && (
+            <div className="w-full h-full flex justify-center items-center ">
+              <ThreeDots
+                visible={true}
+                height="80"
+                width="80"
+                color="#4f46e5"
+                radius="9"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            </div>
+          )}
           <div className="mx-auto mt-10 bg-white rounded-2xl max-w-7xl px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl p-2 font-bold tracking-tight text-gray-900">
               {user.addresses[0]?.name ? user.addresses[0]?.name : "New User"}
@@ -442,8 +461,17 @@ export default function UserProfile() {
                         >
                           Edit
                         </button>
+                        <Modals
+                          title="Remove Address"
+                          message="Are you sure you want to remove this Address from your Profile?"
+                          dangerOption="Remove"
+                          cancelOption="Cancel"
+                          cancelAction={() => setOpenModal(null)}
+                          dangerAction={(e) => handleRemove(e, index)}
+                          showModal={openModal === index}
+                        ></Modals>
                         <button
-                          onClick={(e) => handleRemove(e, index)}
+                          onClick={() => setOpenModal(index)}
                           type="button"
                           className="font-medium text-indigo-600 hover:text-indigo-500 hover:text-xl"
                         >

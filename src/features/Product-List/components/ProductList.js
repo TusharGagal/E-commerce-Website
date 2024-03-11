@@ -9,6 +9,7 @@ import {
   selectAllCategories,
   selectAllProducts,
   selectTotalItems,
+  selectProductListStatus,
 } from "../ProductSlice";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -22,7 +23,7 @@ import {
 import { Link } from "react-router-dom";
 import { ITEMS_PER_PAGE as limit } from "../../../app/Constants";
 import Pagination from "../../CommonComponents/Pagination";
-
+import { ThreeDots } from "react-loader-spinner";
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
   { name: "Price: Low to High", sort: "price", order: "asc", current: false },
@@ -43,6 +44,7 @@ export default function ProductList() {
   const brands = useSelector(selectAllBrands);
   const categories = useSelector(selectAllCategories);
   const totalItems = useSelector(selectTotalItems);
+  const status = useSelector(selectProductListStatus);
 
   const filters = [
     {
@@ -134,7 +136,7 @@ export default function ProductList() {
                   leaveTo="transform opacity-0 scale-95"
                 >
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <div className="py-1">
+                    <div className="py-1 cursor-pointer">
                       {sortOptions.map((option) => (
                         <Menu.Item key={option.name}>
                           {({ active }) => (
@@ -160,13 +162,6 @@ export default function ProductList() {
 
               <button
                 type="button"
-                className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7"
-              >
-                <span className="sr-only">View grid</span>
-                <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
                 className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
                 onClick={() => setMobileFiltersOpen(true)}
               >
@@ -184,9 +179,8 @@ export default function ProductList() {
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
               <DesktopFilters handleFilter={handleFilter} filters={filters} />
-
               {/* Product grid */}
-              <ProductGrid products={products} />
+              <ProductGrid products={products} status={status} />
             </div>
           </section>
 
@@ -376,13 +370,27 @@ function DesktopFilters({ handleFilter, filters }) {
     </form>
   );
 }
-function ProductGrid({ products }) {
+function ProductGrid({ products, status }) {
   return (
     <div className="lg:col-span-3">
       <div>
         <div>
           <div className="bg-white">
             <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
+              {status === "loading" && (
+                <div className="w-full h-full flex justify-center items-center ">
+                  <ThreeDots
+                    visible={true}
+                    height="80"
+                    width="80"
+                    color="#4f46e5"
+                    radius="9"
+                    ariaLabel="three-dots-loading"
+                    wrapperStyle={{ "text-align": "center" }}
+                    wrapperClass=""
+                  />
+                </div>
+              )}
               <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
                 {products.map((product) => (
                   <Link to={`/product-details/${product.id}`}>
@@ -437,6 +445,11 @@ function ProductGrid({ products }) {
                           <p className="text-sm text-red-400">
                             Product deleted
                           </p>
+                        </div>
+                      )}
+                      {product.stock <= 0 && (
+                        <div>
+                          <p className="text-sm text-red-400">Out of stock</p>
                         </div>
                       )}
                     </div>

@@ -16,9 +16,12 @@ import {
 
 import { ITEMS_PER_PAGE, discountedPrice } from "../../../app/Constants";
 import Pagination from "../../CommonComponents/Pagination";
+import { ThreeDots } from "react-loader-spinner";
+import { OrderStatus } from "../../User/userSlice";
 function AdminOrders() {
   const dispatch = useDispatch();
   const orders = useSelector(selectOrders);
+  const status = useSelector(OrderStatus);
   const totalOrders = useSelector(selectTotalOrders);
   const [sort, setSort] = useState({});
   const [page, setPage] = useState(1);
@@ -67,6 +70,20 @@ function AdminOrders() {
       <div className="bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
         <div className="w-full ">
           <div className="bg-white shadow-md rounded my-6">
+            {status === "loading" && (
+              <div className="w-full h-full flex justify-center items-center ">
+                <ThreeDots
+                  visible={true}
+                  height="80"
+                  width="80"
+                  color="#4fa94d"
+                  radius="9"
+                  ariaLabel="three-dots-loading"
+                  wrapperStyle={{ "text-align": "center" }}
+                  wrapperClass=""
+                />
+              </div>
+            )}
             <table className="min-w-max w-full table-auto">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">

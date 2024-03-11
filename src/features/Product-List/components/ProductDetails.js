@@ -9,7 +9,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { addToCartAsync } from "../../Cart/CartSlice";
+import { addToCartAsync, cartItems } from "../../Cart/CartSlice";
 import { selectLoggedInUser } from "../../Auth/AuthSlice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -81,15 +81,25 @@ export default function ProductDetails() {
   const user = useSelector(selectLoggedInUser);
   const dispatch = useDispatch();
   const product = useSelector(selectedProductById);
+  const items = useSelector(cartItems);
   const params = useParams();
   const navigate = useNavigate();
   const handleCart = (e) => {
     e.preventDefault();
     if (user) {
-      const newItem = { ...product, quantity: 1, user: user?.id };
-      delete newItem["id"];
-      toast.success("Item added to cart!");
-      dispatch(addToCartAsync(newItem));
+      if (items.findIndex((item) => item.productId === product.id) < 0) {
+        const newItem = {
+          ...product,
+          productId: product.id,
+          quantity: 1,
+          user: user?.id,
+        };
+        delete newItem["id"];
+        toast.success("Item added to cart!");
+        dispatch(addToCartAsync(newItem));
+      } else {
+        toast.warn("Item already added to cart!");
+      }
     } else {
       toast.warn("Please login to your account");
       navigate("/Signin");

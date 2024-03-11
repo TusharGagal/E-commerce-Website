@@ -12,12 +12,18 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { discountedPrice } from "../../app/Constants";
+import { selectProductListStatus } from "../Product-List/ProductSlice";
+import { ThreeDots } from "react-loader-spinner";
+import Modals from "../CommonComponents/Modals";
 
 export default function Cart() {
   const [open, setOpen] = useState(true);
+  const [openModal, setOpenModal] = useState(null);
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
   const products = useSelector(cartItems);
+  const cartStatus = useSelector(cartstatus);
+
   const totalAmount = products.reduce(
     (amount, item) => discountedPrice(item) * item.quantity + amount,
     0
@@ -32,9 +38,10 @@ export default function Cart() {
   };
   return (
     <>
-      {!products.length && cartstatus === "idle" && (
+      {!products.length && cartStatus === "idle" && (
         <Navigate to="/" replace={true}></Navigate>
       )}
+
       <div>
         <div className="mx-auto mt-14 bg-white rounded-2xl max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl p-5 font-bold tracking-tight text-gray-900">
@@ -47,6 +54,20 @@ export default function Cart() {
                   <h3 className="text-2xl p-5 font-bold tracking-tight text-gray-900">
                     Your Cart is empty
                   </h3>
+                )}
+                {cartStatus === "loading" && (
+                  <div className="w-full h-full flex justify-center items-center ">
+                    <ThreeDots
+                      visible={true}
+                      height="80"
+                      width="80"
+                      color="#4f46e5"
+                      radius="9"
+                      ariaLabel="three-dots-loading"
+                      wrapperStyle={{ "text-align": "center" }}
+                      wrapperClass=""
+                    />
+                  </div>
                 )}
                 {products.map((product) => (
                   <li key={product.id} className="flex py-6">
@@ -94,10 +115,19 @@ export default function Cart() {
                         </div>
 
                         <div className="flex">
+                          <Modals
+                            title={`Remove ${product.title}`}
+                            message="Are you sure you want to remove this item from your cart"
+                            dangerOption="Remove"
+                            cancelOption="Cancel"
+                            cancelAction={() => setOpenModal(null)}
+                            dangerAction={(e) => handleRemove(e, product.id)}
+                            showModal={openModal === product.id}
+                          ></Modals>
                           <button
                             type="button"
                             className="font-medium text-indigo-600 hover:text-indigo-500"
-                            onClick={(e) => handleRemove(e, product.id)}
+                            onClick={() => setOpenModal(product.id)}
                           >
                             Remove
                           </button>

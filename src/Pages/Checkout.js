@@ -16,8 +16,11 @@ import {
 import { toast } from "react-toastify";
 import { selectUserInfo } from "../features/User/userSlice";
 import { discountedPrice } from "../app/Constants";
+import Modals from "../features/CommonComponents/Modals";
 function Checkout() {
   const [open, setOpen] = useState(true);
+  const [openModal, setOpenModal] = useState(null);
+
   const dispatch = useDispatch();
   const products = useSelector(cartItems);
   const totalAmount = products.reduce(
@@ -406,10 +409,21 @@ function Checkout() {
                             </div>
 
                             <div className="flex">
+                              <Modals
+                                title={`Remove ${product.title}`}
+                                message="Are you sure you want to remove this item from your cart"
+                                dangerOption="Remove"
+                                cancelOption="Cancel"
+                                cancelAction={() => setOpenModal(null)}
+                                dangerAction={(e) =>
+                                  handleRemove(e, product.id)
+                                }
+                                showModal={openModal === product.id}
+                              ></Modals>
                               <button
                                 type="button"
                                 className="font-medium text-indigo-600 hover:text-indigo-500"
-                                onClick={(e) => handleRemove(e, product.id)}
+                                onClick={() => setOpenModal(product.id)}
                               >
                                 Remove
                               </button>

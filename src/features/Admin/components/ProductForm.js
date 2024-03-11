@@ -10,8 +10,9 @@ import {
 } from "../../Product-List/ProductSlice";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchProductByIdAsync } from "../../Product-List/ProductSlice";
+import Modals from "../../CommonComponents/Modals";
 export default function ProductForm() {
   const brands = useSelector(selectAllBrands);
   const categories = useSelector(selectAllCategories);
@@ -19,6 +20,8 @@ export default function ProductForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
+  const [openModal, setOpenModal] = useState(null);
+
   const {
     register,
     handleSubmit,
@@ -46,6 +49,7 @@ export default function ProductForm() {
       setValue("image1", Selectedproduct.images[0]);
       setValue("image2", Selectedproduct.images[1]);
       setValue("image3", Selectedproduct.images[2]);
+      setValue("image4", Selectedproduct.images[3]);
     }
   }, [Selectedproduct]);
 
@@ -53,21 +57,31 @@ export default function ProductForm() {
     const product = { ...Selectedproduct };
     product.deleted = true;
     dispatch(updateProductAsync(product));
+    navigate("/admin");
   };
   return (
     <form
       onSubmit={handleSubmit((data) => {
         const product = { ...data };
-        product.images = [product.image1, product.image2, product.image3];
+        product.images = [
+          product.image1,
+          product.image2,
+          product.image3,
+          product.image4,
+        ];
         product.rating = params?.id ? Selectedproduct.rating : 0;
         delete product["image1"];
         delete product["image2"];
         delete product["image3"];
+        delete product["image4"];
         product.price = +product.price;
         product.stock = +product.stock;
         product.discountPercentage = +product.discountPercentage;
         if (params?.id) {
           product.id = params.id;
+          if ("deleted" in Selectedproduct) {
+            product.deleted = false;
+          }
           dispatch(updateProductAsync(product));
         } else {
           dispatch(createProductAsync(product));
@@ -322,6 +336,26 @@ export default function ProductForm() {
                 </div>
               </div>
             </div>
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="image4"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Image 4
+              </label>
+              <div className="mt-2">
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
+                  <input
+                    type="text"
+                    {...register("image4", {
+                      required: "Image 4 is required",
+                    })}
+                    id="image4"
+                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -461,7 +495,7 @@ export default function ProductForm() {
         </div>
       </div>
 
-      {!Selectedproduct ? (
+      {!Selectedproduct || Selectedproduct.deleted === true ? (
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <button
             type="button"
@@ -479,9 +513,18 @@ export default function ProductForm() {
       ) : (
         <div className="mt-6 flex items-center justify-between gap-x-6">
           <div>
+            <Modals
+              title={`Delete ${Selectedproduct.title}`}
+              message="Are you sure you want to delete this product?"
+              dangerOption="Delete"
+              cancelOption="Cancel"
+              cancelAction={() => setOpenModal(null)}
+              dangerAction={handleDelete}
+              showModal={openModal}
+            />
             <button
-              type="submit"
-              onClick={handleDelete}
+              type="button"
+              onClick={() => setOpenModal(true)}
               className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
             >
               Delete
@@ -490,6 +533,7 @@ export default function ProductForm() {
           <div className="flex items-center justify-center gap-x-6">
             <button
               type="button"
+              onClick={() => navigate("/admin")}
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               Cancel

@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchLoggedInUserOrdersAsync, selectUserOrders } from "../userSlice";
+import {
+  fetchLoggedInUserOrdersAsync,
+  selectUserOrders,
+  OrderStatus,
+} from "../userSlice";
 import { selectLoggedInUser } from "../../Auth/AuthSlice";
 import { discountedPrice } from "../../../app/Constants";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function UserOrders() {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
   const orders = useSelector(selectUserOrders);
+  const status = useSelector(OrderStatus);
+
   useEffect(() => {
     if (user) {
       dispatch(fetchLoggedInUserOrdersAsync(user.id));
@@ -24,7 +31,20 @@ export default function UserOrders() {
             There are no orders available.
           </h2>
         )}
-
+        {status === "loading" && (
+          <div className="w-full h-full flex justify-center items-center my-10">
+            <ThreeDots
+              visible={true}
+              height="80"
+              width="80"
+              color="#4f46e5"
+              radius="9"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{ "text-align": "center" }}
+              wrapperClass=""
+            />
+          </div>
+        )}
         {orders?.map((order) => (
           <div>
             <div className="mx-auto mt-10 bg-white rounded-2xl max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -109,12 +129,15 @@ export default function UserOrders() {
                         </div>
                       </label>
                     </div>
-                    <div className="hidden sm:flex sm:flex-col sm:items-start">
+                    <div className="hidden sm:flex sm:flex-col sm:items-end">
                       <p className="text-sm font-semibold leading-6 text-gray-900">
                         {order.selectedAddress.phone}
                       </p>
                       <p className="text-sm font-semibold leading-6 text-gray-900">
                         {order.selectedAddress.state}
+                      </p>
+                      <p className="text-sm font-semibold leading-6 text-gray-900">
+                        {order.selectedAddress.email}
                       </p>
                     </div>
                   </div>

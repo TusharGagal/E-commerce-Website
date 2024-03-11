@@ -36,7 +36,7 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <Protected>
-        <Home />,
+        <Home />
       </Protected>
     ),
   },
@@ -44,7 +44,7 @@ const router = createBrowserRouter([
     path: "/admin",
     element: (
       <ProtectedAdmin>
-        <AdminHome />,
+        <AdminHome />
       </ProtectedAdmin>
     ),
   },
@@ -69,7 +69,7 @@ const router = createBrowserRouter([
     path: "cart",
     element: (
       <Protected>
-        <CartPage />,
+        <CartPage />
       </Protected>
     ),
   },
@@ -78,7 +78,7 @@ const router = createBrowserRouter([
     path: "checkout",
     element: (
       <Protected>
-        <Checkout />,
+        <Checkout />
       </Protected>
     ),
   },
@@ -127,7 +127,7 @@ const router = createBrowserRouter([
     path: "myorders",
     element: (
       <Protected>
-        <UserOrderPage />,
+        <UserOrderPage />
       </Protected>
     ),
   },
@@ -135,7 +135,7 @@ const router = createBrowserRouter([
     path: "myprofile",
     element: (
       <Protected>
-        <UserProfilePage />,
+        <UserProfilePage />
       </Protected>
     ),
   },
