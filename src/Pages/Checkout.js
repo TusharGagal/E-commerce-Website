@@ -24,12 +24,12 @@ function Checkout() {
   const dispatch = useDispatch();
   const products = useSelector(cartItems);
   const totalAmount = products.reduce(
-    (amount, item) => discountedPrice(item) * item.quantity + amount,
+    (amount, item) => discountedPrice(item.product) * item.quantity + amount,
     0
   );
   const totalItems = products.reduce((total, item) => item.quantity + total, 0);
   const handleQuantity = (e, item) => {
-    dispatch(updateItemsAsync({ ...item, quantity: +e.target.value }));
+    dispatch(updateItemsAsync({ id: item.id, quantity: +e.target.value }));
   };
   const handleRemove = (e, itemId) => {
     dispatch(removeItemAsync(itemId));
@@ -57,7 +57,7 @@ function Checkout() {
       products,
       totalAmount,
       totalItems,
-      user,
+      user: user.id,
       paymentMethod,
       selectedAddress,
       status: "pending", //other status can be delivered ,recieved.
@@ -367,8 +367,8 @@ function Checkout() {
                       <li key={product.id} className="flex py-6">
                         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                           <img
-                            src={product.thumbnail}
-                            alt={product.title}
+                            src={product.product.thumbnail}
+                            alt={product.product.title}
                             className="h-full w-full object-cover object-center"
                           />
                         </div>
@@ -377,15 +377,18 @@ function Checkout() {
                           <div>
                             <div className="flex justify-between text-base font-medium text-gray-900">
                               <h3>
-                                <a href={product.id}>{product.title}</a>
+                                <a href={product.product.id}>
+                                  {product.product.title}
+                                </a>
                               </h3>
                               <p className="ml-4">
                                 Rs.
-                                {discountedPrice(product) * product.quantity}
+                                {discountedPrice(product.product) *
+                                  product.quantity}
                               </p>
                             </div>
                             <p className="mt-1 text-sm text-gray-500">
-                              {product.brand}
+                              {product.product.brand}
                             </p>
                           </div>
                           <div className="flex flex-1 items-end justify-between text-sm">
@@ -410,7 +413,7 @@ function Checkout() {
 
                             <div className="flex">
                               <Modals
-                                title={`Remove ${product.title}`}
+                                title={`Remove ${product.product.title}`}
                                 message="Are you sure you want to remove this item from your cart"
                                 dangerOption="Remove"
                                 cancelOption="Cancel"
