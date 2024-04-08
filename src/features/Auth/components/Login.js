@@ -4,11 +4,12 @@ import { Link, Navigate, useLocation } from "react-router-dom";
 import logo from "../../../images/logo (2).png";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { checkUserAsync, selectError, selectLoggedInUser } from "../AuthSlice";
+import { selectUserInfo } from "../../User/userSlice";
 export default function Login() {
   // const count = useSelector(selectCount);
   const dispatch = useDispatch();
   const error = useSelector(selectError);
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectUserInfo);
 
   const {
     register,
