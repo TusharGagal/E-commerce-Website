@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   fetchAllBrandsAsync,
   fetchAllCategoriesAsync,
-  fetchAllProductsAsync,
   fetchProductsByFilterAsync,
   selectAllBrands,
   selectAllCategories,
@@ -85,7 +84,9 @@ export default function ProductList() {
   };
   useEffect(() => {
     const pagination = { _page: page, _limit: limit };
-    dispatch(fetchProductsByFilterAsync({ filter, sort, pagination }));
+    dispatch(
+      fetchProductsByFilterAsync({ filter, sort, pagination, admin: true })
+    );
     //TODO: server will filter deleted products
   }, [dispatch, filter, sort, page]);
 

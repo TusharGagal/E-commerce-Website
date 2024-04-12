@@ -9,7 +9,6 @@ import {
 import {
   PencilIcon,
   EyeIcon,
-  CheckIcon,
   ArrowDownIcon,
   ArrowUpIcon,
 } from "@heroicons/react/24/outline";
@@ -26,7 +25,7 @@ function AdminOrders() {
   const [sort, setSort] = useState({});
   const [page, setPage] = useState(1);
   const [editableOrderId, setEditableOrderId] = useState(-1);
-  const [orderStatus, setOrderStatus] = useState(null);
+
   useEffect(() => {
     const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
     dispatch(fetchAllOrderAsync({ sort, pagination }));
@@ -38,8 +37,8 @@ function AdminOrders() {
     setEditableOrderId(order.id);
   };
 
-  const handleUpdate = (order) => {
-    const updateOrder = { ...order, status: orderStatus };
+  const handleOrderStatus = (e, order) => {
+    const updateOrder = { ...order, status: e.target.value };
     dispatch(updateOrderAsync(updateOrder));
     setEditableOrderId(-1);
   };
@@ -142,12 +141,12 @@ function AdminOrders() {
                           <div className="mr-2">
                             <img
                               className="w-6 h-6 rounded-full"
-                              src={item.thumbnail}
+                              src={item.product.thumbnail}
                             />
                           </div>
                           <span>
-                            {item.title} - {item.quantity} (Rs.{" "}
-                            {discountedPrice(item) * item.quantity})
+                            {item.product.title} - {item.quantity} (Rs.{" "}
+                            {discountedPrice(item.product) * item.quantity})
                           </span>
                         </div>
                       ))}
@@ -171,11 +170,12 @@ function AdminOrders() {
                         <div>{order.selectedAddress.pinCode}</div>
                       </div>
                     </td>
-                    <td className="py-3 px-6 text-center">
+                    <td className="py-3 px-2 text-center">
                       {editableOrderId === order.id ? (
                         <select
-                          onChange={(e) => setOrderStatus(e.target.value)}
+                          onChange={(e) => handleOrderStatus(e, order)}
                           defaultValue={order.status}
+                          className=" text-sm"
                         >
                           <option value="pending">Pending</option>
                           <option value="dispatched">Dispatched</option>
@@ -200,11 +200,6 @@ function AdminOrders() {
                         <div className="w-6 mr-2 transform cursor-pointer hover:text-purple-500 hover:scale-110">
                           <PencilIcon onClick={() => handleEdit(order)} />
                         </div>
-                        {editableOrderId === order.id && (
-                          <div className="w-6 mr-2 transform cursor-pointer hover:text-purple-500 hover:scale-110">
-                            <CheckIcon onClick={() => handleUpdate(order)} />
-                          </div>
-                        )}
                       </div>
                     </td>
                   </tr>

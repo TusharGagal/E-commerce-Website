@@ -1,12 +1,5 @@
 // A mock function to mimic making an async request for data
-export function fetchAllProducts() {
-  // TODO: we will not hard-code server URL here
-  return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080/products");
-    const data = await response.json();
-    resolve({ data });
-  });
-}
+
 export function fetchAllProductById(id) {
   // TODO: we will not hard-code server URL here
   return new Promise(async (resolve) => {
@@ -43,7 +36,7 @@ export function fetchAllCategories() {
     resolve({ data });
   });
 }
-export function fetchProductsByFilter(filter, sort, pagination) {
+export function fetchProductsByFilter(filter, sort, pagination, admin) {
   // filter={"category":"[smartphone","laptops"]}
   //sort={_sort:"price",_order:"desc"};
   //Pagination={_page:1,_limit=10}
@@ -65,6 +58,9 @@ export function fetchProductsByFilter(filter, sort, pagination) {
   //pagination
   for (let key in pagination) {
     queryString += `${key}=${pagination[key]}&`;
+  }
+  if (admin) {
+    queryString += "admin=true";
   }
 
   // TODO: we will not hard-code server URL here

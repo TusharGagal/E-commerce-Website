@@ -13,6 +13,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchProductByIdAsync } from "../../Product-List/ProductSlice";
 import Modals from "../../CommonComponents/Modals";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function ProductForm() {
   const brands = useSelector(selectAllBrands);
   const categories = useSelector(selectAllCategories);
@@ -57,6 +59,7 @@ export default function ProductForm() {
     const product = { ...Selectedproduct };
     product.deleted = true;
     dispatch(updateProductAsync(product));
+    toast.dark("Product is deleted");
     navigate("/admin");
   };
   return (
@@ -83,8 +86,11 @@ export default function ProductForm() {
             product.deleted = false;
           }
           dispatch(updateProductAsync(product));
+          toast.success("Product updated successfully");
         } else {
           dispatch(createProductAsync(product));
+          toast.success("Product created successfully");
+          //TODO: these alerts should check if API failed
         }
         reset();
         navigate("/admin");

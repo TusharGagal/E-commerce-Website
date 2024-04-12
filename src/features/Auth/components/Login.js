@@ -9,7 +9,7 @@ export default function Login() {
   // const count = useSelector(selectCount);
   const dispatch = useDispatch();
   const error = useSelector(selectError);
-  const user = useSelector(selectUserInfo);
+  const user = useSelector(selectLoggedInUser);
 
   const {
     register,
