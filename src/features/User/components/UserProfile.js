@@ -40,11 +40,13 @@ export default function UserProfile() {
     dispatch(updateUserAsync(newUser));
   };
   const handleAdd = (data) => {
-    updateUserAsync({
-      ...user,
-      addresses: [...user.addresses, data],
-    });
-    showAddAddressFrom(false);
+    dispatch(
+      updateUserAsync({
+        ...user,
+        addresses: [...user.addresses, data],
+      })
+    );
+    setshowAddAddressFrom(false);
   };
   const {
     register,

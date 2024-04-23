@@ -23,9 +23,9 @@ export function updateItem(update) {
     resolve({ data });
   });
 }
-export function fetchItemsByUserId(userId) {
+export function fetchItemsByUserId() {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080/cart?user=" + userId);
+    const response = await fetch("http://localhost:8080/cart");
     const data = await response.json();
     //TODO: on server it will return some info of user(not password).
     resolve({ data });
@@ -44,10 +44,10 @@ export function removeItem(itemId) {
   });
 }
 
-export function resetCart(userId) {
+export function resetCart() {
   // get all the items of user cart and then delete all the items.
   return new Promise(async (resolve) => {
-    const response = await fetchItemsByUserId(userId);
+    const response = await fetchItemsByUserId();
     const items = await response.data;
     for (let item of items) {
       await removeItem(item.id);
