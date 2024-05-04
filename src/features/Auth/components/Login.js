@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import logo from "../../../images/logo (2).png";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { checkUserAsync, selectError, selectLoggedInUser } from "../AuthSlice";
+import { loginUserAsync, selectError, selectLoggedInUser } from "../AuthSlice";
 import { selectUserInfo } from "../../User/userSlice";
 export default function Login() {
   // const count = useSelector(selectCount);
@@ -39,7 +39,7 @@ export default function Login() {
             className="space-y-6"
             onSubmit={handleSubmit((data) => {
               dispatch(
-                checkUserAsync({
+                loginUserAsync({
                   email: data.email,
                   password: data.password,
                 })

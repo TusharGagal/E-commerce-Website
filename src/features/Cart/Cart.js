@@ -20,7 +20,6 @@ export default function Cart() {
   const [open, setOpen] = useState(true);
   const [openModal, setOpenModal] = useState(null);
   const dispatch = useDispatch();
-  const user = useSelector(selectLoggedInUser);
   const products = useSelector(cartItems);
   const cartStatus = useSelector(cartstatus);
 

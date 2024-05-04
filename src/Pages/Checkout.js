@@ -6,7 +6,7 @@ import {
   removeItemAsync,
   updateItemsAsync,
 } from "../features/Cart/CartSlice";
-import { checkUserAsync, updateUserAsync } from "../features/Auth/AuthSlice";
+import { loginUserAsync, updateUserAsync } from "../features/Auth/AuthSlice";
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import {

@@ -10,7 +10,7 @@ export default function OrderSuccessPage() {
   const dispatch = useDispatch();
   useEffect(() => {
     //reset cart
-    dispatch(resetCartAsync(user?.id));
+    dispatch(resetCartAsync());
     //reset currentOrder
     dispatch(resetOrder());
   }, [dispatch, user]);

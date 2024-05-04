@@ -19,7 +19,7 @@ import ProductdetailPage from "./Pages/ProductdetailPage";
 import AdminProductdetailPage from "./Pages/AdminProductdetailPage";
 import Protected from "./features/Auth/components/Protected";
 import ProtectedAdmin from "./features/Auth/components/ProtectedAdmin";
-import { selectLoggedInUser } from "./features/Auth/AuthSlice";
+import { checkAuthAsync, selectLoggedInUser } from "./features/Auth/AuthSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchItemsByUserIdAsync } from "./features/Cart/CartSlice";
 import OrderSuccessPage from "./Pages/OrderSuccessPage";
@@ -147,10 +147,16 @@ const router = createBrowserRouter([
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
+
+  // useEffect(() => {
+  //   dispatch(checkAuthAsync());
+  // }, [dispatch]);
+
   useEffect(() => {
     if (user) {
-      dispatch(fetchItemsByUserIdAsync(user.id));
-      dispatch(fetchLoggedInUserAsync(user.id));
+      dispatch(fetchItemsByUserIdAsync());
+
+      dispatch(fetchLoggedInUserAsync());
     }
   }, [dispatch, user]);
 

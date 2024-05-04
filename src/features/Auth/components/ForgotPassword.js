@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import logo from "../../../images/logo (2).png";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { checkUserAsync } from "../AuthSlice";
+import { loginUserAsync } from "../AuthSlice";
 export default function ForgotPassword() {
   // const count = useSelector(selectCount);
   const dispatch = useDispatch();
