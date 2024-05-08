@@ -34,10 +34,10 @@ export const loginUserAsync = createAsyncThunk(
     }
   }
 );
-export const checkAuthAsync = createAsyncThunk("user/checkAuth", async () => {
-  const response = await checkAuth();
-  return response.data;
-});
+// export const checkAuthAsync = createAsyncThunk("user/checkAuth", async () => {
+//   const response = await checkAuth();
+//   return response.data;
+// });
 
 export const singOutAsync = createAsyncThunk("user/signOut", async (userId) => {
   const response = await SignOut(userId);
@@ -86,14 +86,14 @@ export const userSlice = createSlice({
       .addCase(singOutAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.loggedInUserToken = null;
-      })
-      .addCase(checkAuthAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(checkAuthAsync.fulfilled, (state, action) => {
-        state.status = "idle";
-        state.loggedInUserToken = action.payload;
       });
+    // .addCase(checkAuthAsync.pending, (state) => {
+    //   state.status = "loading";
+    // })
+    // .addCase(checkAuthAsync.fulfilled, (state, action) => {
+    //   state.status = "idle";
+    //   state.loggedInUserToken = action.payload;
+    // });
   },
 });
 

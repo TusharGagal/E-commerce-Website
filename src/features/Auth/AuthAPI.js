@@ -50,24 +50,24 @@ export function loginUser(loginInfo) {
   });
 }
 
-export function checkAuth() {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const response = await fetch("http://localhost:8080/auth/check");
-      const data = await response.json();
-      if (response.ok) {
-        resolve({ data });
-      } else {
-        reject({ error: data });
-      }
-    } catch (error) {
-      reject({ error });
-      toast.error(
-        "An error occurred while checking authentication. Please try again later."
-      );
-    }
-  });
-}
+// export function checkAuth() {
+//   return new Promise(async (resolve, reject) => {
+//     try {
+//       const response = await fetch("http://localhost:8080/auth/check");
+//       const data = await response.json();
+//       if (response.ok) {
+//         resolve({ data });
+//       } else {
+//         reject({ error: data });
+//       }
+//     } catch (error) {
+//       reject({ error });
+//       toast.error(
+//         "An error occurred while checking authentication. Please try again later."
+//       );
+//     }
+//   });
+// }
 
 export function SignOut(userId) {
   return new Promise(async (resolve, reject) => {
