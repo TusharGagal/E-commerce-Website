@@ -27,8 +27,18 @@ import Pagination from "../../CommonComponents/Pagination";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
-  { name: "Price: Low to High", sort: "price", order: "asc", current: false },
-  { name: "Price: High to Low", sort: "price", order: "desc", current: false },
+  {
+    name: "Price: Low to High",
+    sort: "discountedPrice",
+    order: "asc",
+    current: false,
+  },
+  {
+    name: "Price: High to Low",
+    sort: "discountedPrice",
+    order: "desc",
+    current: false,
+  },
 ];
 
 function classNames(...classes) {
@@ -68,7 +78,6 @@ export default function ProductList() {
   };
   const handleFilter = (section, option, e) => {
     const newFilter = { ...filter };
-    //TODO: on server we wil support the mulitple value on filters
     if (e.target.checked) {
       if (newFilter[section.id]) {
         newFilter[section.id].push(option.value);

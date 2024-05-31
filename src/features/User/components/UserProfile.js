@@ -14,8 +14,6 @@ export default function UserProfile() {
   const [selectEditIndex, setSelectEditIndex] = useState(-1);
   const [showAddAddressFrom, setshowAddAddressFrom] = useState(false);
 
-  // TODO: we will add payment section in user profile and in checkout section when we work on backend.
-
   const handleEdit = (addressUpdate, index) => {
     const newUser = { ...user, addresses: [...user.addresses] };
     newUser.addresses.splice(index, 1, addressUpdate);

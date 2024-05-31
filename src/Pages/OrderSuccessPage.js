@@ -3,11 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { resetCartAsync } from "../features/Cart/CartSlice";
 import { selectLoggedInUser } from "../features/Auth/AuthSlice";
-import { resetOrder } from "../features/Order/OrderSlice";
+import { resetOrder, selectCurrentOrder } from "../features/Order/OrderSlice";
+import { toast } from "react-toastify";
+
 export default function OrderSuccessPage() {
   const params = useParams();
   const user = useSelector(selectLoggedInUser);
   const dispatch = useDispatch();
+  useEffect(() => {
+    toast.success(`Yor order has been placed`);
+  }, []);
   useEffect(() => {
     //reset cart
     dispatch(resetCartAsync());

@@ -8,7 +8,7 @@ function Protected({ children }) {
   if (!user) {
     return <Navigate to="/Signin" replace={true} />;
   }
-  if (user && userInfo.role !== "admin") {
+  if (userInfo && userInfo.role !== "admin") {
     return <Navigate to="/" replace={true} />;
   }
 

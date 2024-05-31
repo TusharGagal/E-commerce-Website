@@ -6,7 +6,6 @@ import {
   OrderStatus,
   selectUserInfo,
 } from "../userSlice";
-import { discountedPrice } from "../../../app/Constants";
 import { ThreeDots } from "react-loader-spinner";
 
 export default function UserOrders() {
@@ -75,8 +74,7 @@ export default function UserOrders() {
                                 </h3>
                                 <p className="ml-4">
                                   Rs.
-                                  {discountedPrice(item.product) *
-                                    item.quantity}
+                                  {item.product.discountedPrice * item.quantity}
                                 </p>
                               </div>
                               <p className="mt-1 text-sm text-gray-500">

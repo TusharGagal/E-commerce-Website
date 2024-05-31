@@ -19,7 +19,11 @@ import ProductdetailPage from "./Pages/ProductdetailPage";
 import AdminProductdetailPage from "./Pages/AdminProductdetailPage";
 import Protected from "./features/Auth/components/Protected";
 import ProtectedAdmin from "./features/Auth/components/ProtectedAdmin";
-import { checkAuthAsync, selectLoggedInUser } from "./features/Auth/AuthSlice";
+import {
+  checkAuthAsync,
+  selectLoggedInUser,
+  selectUserChecked,
+} from "./features/Auth/AuthSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchItemsByUserIdAsync } from "./features/Cart/CartSlice";
 import OrderSuccessPage from "./Pages/OrderSuccessPage";
@@ -30,6 +34,8 @@ import Logout from "./features/Auth/components/Logout";
 import ForgotPasswordPage from "./Pages/ForgotPasswordPage";
 import AdminProductFormPage from "./Pages/AdminProductFormPage";
 import AdminOrdersPage from "./Pages/AdminOrdersPage";
+import StripeCheckout from "./Pages/StripeCheckout";
+import ResetPasswordPage from "./Pages/ResetPasswordPage";
 
 const router = createBrowserRouter([
   {
@@ -120,11 +126,11 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "order-success/:id",
+    path: "/order-success/:id",
     element: <OrderSuccessPage />,
   },
   {
-    path: "myorders",
+    path: "/myorders",
     element: (
       <Protected>
         <UserOrderPage />
@@ -132,12 +138,24 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "myprofile",
+    path: "/myprofile",
     element: (
       <Protected>
         <UserProfilePage />
       </Protected>
     ),
+  },
+  {
+    path: "/stripe-checkout",
+    element: (
+      <Protected>
+        <StripeCheckout />
+      </Protected>
+    ),
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPasswordPage />,
   },
   {
     path: "*",
@@ -147,22 +165,22 @@ const router = createBrowserRouter([
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
+  const userChecked = useSelector(selectUserChecked);
 
-  // useEffect(() => {
-  //   dispatch(checkAuthAsync());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(checkAuthAsync());
+  }, [dispatch]);
 
   useEffect(() => {
     if (user) {
       dispatch(fetchItemsByUserIdAsync());
-
       dispatch(fetchLoggedInUserAsync());
     }
   }, [dispatch, user]);
 
   return (
     <div className="App">
-      <RouterProvider router={router} />
+      {userChecked && <RouterProvider router={router} />}
       <ToastContainer />
     </div>
   );

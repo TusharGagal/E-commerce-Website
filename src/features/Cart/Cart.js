@@ -5,13 +5,13 @@ import {
   removeItemAsync,
   updateItemsAsync,
   cartstatus,
+  selectCartLoaded,
 } from "./CartSlice";
 import { selectLoggedInUser } from "../Auth/AuthSlice";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
-import { discountedPrice } from "../../app/Constants";
 import { selectProductListStatus } from "../Product-List/ProductSlice";
 import { ThreeDots } from "react-loader-spinner";
 import Modals from "../CommonComponents/Modals";
@@ -22,9 +22,10 @@ export default function Cart() {
   const dispatch = useDispatch();
   const products = useSelector(cartItems);
   const cartStatus = useSelector(cartstatus);
+  const cartLoaded = useSelector(selectCartLoaded);
 
   const totalAmount = products.reduce(
-    (amount, item) => discountedPrice(item.product) * item.quantity + amount,
+    (amount, item) => item.product.discountedPrice * item.quantity + amount,
     0
   );
   const totalItems = products.reduce((total, item) => item.quantity + total, 0);
@@ -37,7 +38,7 @@ export default function Cart() {
   };
   return (
     <>
-      {!products.length && cartStatus === "idle" && (
+      {!products.length && cartLoaded && (
         <Navigate to="/" replace={true}></Navigate>
       )}
 
@@ -88,8 +89,7 @@ export default function Cart() {
                           </h3>
                           <p className="ml-4">
                             Rs.
-                            {discountedPrice(product.product) *
-                              product.quantity}
+                            {product.product.discountedPrice * product.quantity}
                           </p>
                         </div>
                         <p className="mt-1 text-sm text-gray-500">

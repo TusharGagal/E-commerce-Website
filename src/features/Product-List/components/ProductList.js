@@ -67,7 +67,6 @@ export default function ProductList() {
   };
   const handleFilter = (section, option, e) => {
     const newFilter = { ...filter };
-    //TODO: on server we wil support the mulitple value on filters
     if (e.target.checked) {
       if (newFilter[section.id]) {
         newFilter[section.id].push(option.value);
@@ -87,7 +86,6 @@ export default function ProductList() {
     dispatch(
       fetchProductsByFilterAsync({ filter, sort, pagination, admin: true })
     );
-    //TODO: server will filter deleted products
   }, [dispatch, filter, sort, page]);
 
   useEffect(() => {
