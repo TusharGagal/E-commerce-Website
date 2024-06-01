@@ -59,7 +59,7 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `https://cartease-q484w7e48-tushargagals-projects.vercel.app/order-success/${currentOrder.id}`,
+        return_url: `https://cartease-tushargagals-projects.vercel.app/order-success/${currentOrder.id}`,
       },
     });
 
