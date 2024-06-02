@@ -63,7 +63,7 @@ function Checkout() {
       paymentMethod,
       selectedAddress,
       status: "pending", //other status can be delivered ,recieved.
-      PaymentStatus: paymentMethod === "Card" ? "received" : "pending",
+      PaymentStatus: paymentMethod === "card" ? "received" : "pending",
     };
     dispatch(createOrderAsync(order));
     if (user.paymentMethod === "cash") {
