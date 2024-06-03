@@ -348,9 +348,10 @@ function DesktopFilters({ handleFilter, filters }) {
                         name={`${section.id}[]`}
                         defaultValue={option.value}
                         type="checkbox"
+                        readonly
                         defaultChecked={option.checked}
                         onChange={(e) => handleFilter(section, option, e)}
-                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        className={`h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500}`}
                       />
                       <label
                         htmlFor={`filter-${section.id}-${optionIdx}`}

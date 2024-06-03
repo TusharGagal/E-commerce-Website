@@ -7,12 +7,9 @@ import {
   cartstatus,
   selectCartLoaded,
 } from "./CartSlice";
-import { selectLoggedInUser } from "../Auth/AuthSlice";
-import { Dialog, Transition } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import { Link, Navigate, useLocation } from "react-router-dom";
+
+import { Link, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { selectProductListStatus } from "../Product-List/ProductSlice";
 import { ThreeDots } from "react-loader-spinner";
 import Modals from "../CommonComponents/Modals";
 
@@ -30,7 +27,14 @@ export default function Cart() {
   );
   const totalItems = products.reduce((total, item) => item.quantity + total, 0);
   const handleQuantity = (e, item) => {
-    dispatch(updateItemsAsync({ id: item.id, quantity: +e.target.value }));
+    if (e.target.value > item.product.stock) {
+      toast.warning(
+        `Sorry we have only ${item.product.stock} quantity of this item.`
+      );
+      e.target.value = item.product.stock;
+    } else {
+      dispatch(updateItemsAsync({ id: item.id, quantity: +e.target.value }));
+    }
   };
   const handleRemove = (e, itemId) => {
     toast.info("item removed from cart");
@@ -104,16 +108,12 @@ export default function Cart() {
                           >
                             Qty
                           </label>
-                          <select
-                            className="rounded-lg py-1"
+                          <input
+                            className="rounded-lg py-1 text-center"
                             onChange={(e) => handleQuantity(e, product)}
-                            defaultValue={product.quantity}
-                          >
-                            <option value="1"> 1</option>
-                            <option value="2"> 2</option>
-                            <option value="3"> 3</option>
-                            <option value="4"> 4</option>
-                          </select>
+                            defaultValue="1"
+                            size="1"
+                          />
                         </div>
 
                         <div className="flex">

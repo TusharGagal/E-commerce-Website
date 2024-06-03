@@ -31,7 +31,14 @@ function Checkout() {
   );
   const totalItems = products.reduce((total, item) => item.quantity + total, 0);
   const handleQuantity = (e, item) => {
-    dispatch(updateItemsAsync({ id: item.id, quantity: +e.target.value }));
+    if (e.target.value > item.product.stock) {
+      toast.warning(
+        `Sorry we have only ${item.product.stock} quantity of this item.`
+      );
+      e.target.value = item.product.stock;
+    } else {
+      dispatch(updateItemsAsync({ id: item.id, quantity: +e.target.value }));
+    }
   };
   const handleRemove = (e, itemId) => {
     dispatch(removeItemAsync(itemId));
@@ -417,16 +424,12 @@ function Checkout() {
                                 >
                                   Qty
                                 </label>
-                                <select
-                                  className="rounded-lg py-1"
+                                <input
+                                  className="rounded-lg py-1 text-center"
                                   onChange={(e) => handleQuantity(e, product)}
                                   defaultValue={product.quantity}
-                                >
-                                  <option value="1"> 1</option>
-                                  <option value="2"> 2</option>
-                                  <option value="3"> 3</option>
-                                  <option value="4"> 4</option>
-                                </select>
+                                  size="1"
+                                />
                               </div>
 
                               <div className="flex">
